@@ -60,19 +60,19 @@
       return;
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbyKRumIv3NE3Zrj9PrfVvwQVoc81WFMhpq-WuKkwPc4Ez-pTOjcvkSU3R_wqmR0uoMMWQ/exec", {
+    fetch("YOUR_SCRIPT_URL", {"https://script.google.com/macros/s/AKfycbyKRumIv3NE3Zrj9PrfVvwQVoc81WFMhpq-WuKkwPc4Ez-pTOjcvkSU3R_wqmR0uoMMWQ/exec"
       method: "POST",
       mode: "no-cors",
-      body: JSON.stringify({
-        item: item,
-        amount: amount
-      })
+      body: JSON.stringify({ item, amount })
     });
 
-    // No waiting for response (important with no-cors)
     document.getElementById("item").value = "";
     document.getElementById("amount").value = "";
-    alert("Saved ✅");
+  }
+
+  function quickAdd(item, amount) {
+    document.getElementById("item").value = item;
+    document.getElementById("amount").value = amount;
   }
 </script>
 </body>
