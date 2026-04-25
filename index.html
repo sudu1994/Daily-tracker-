@@ -50,8 +50,6 @@
 
  <script>
   function submitData() {
-    console.log("button clicked");
-
     const item = document.getElementById("item").value;
     const amount = document.getElementById("amount").value;
 
@@ -60,22 +58,19 @@
       return;
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbwkUpN33WJuzBq1e-CJycIgh6WQ0_uiflnxa8Il29PgKGUkTS0aMJYMSJpvDVXky09o-A/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwdHKQv7OyAIjLFqy0vruF9_x86JSj9n-QtgmsHcLlyQbA9trKYCZXJfj7dn5XCt2ESqQ/exec", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ item, amount })
-    })
-    .then(res => res.text())
-    .then(data => {
-      console.log(data);
-      alert("Saved ✅");
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Error ❌");
+      mode: "no-cors",
+      body: JSON.stringify({
+        item: item,
+        amount: amount
+      })
     });
+
+    // No waiting for response (important with no-cors)
+    document.getElementById("item").value = "";
+    document.getElementById("amount").value = "";
+    alert("Saved ✅");
   }
 </script>
 </body>
