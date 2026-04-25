@@ -4,6 +4,7 @@
 
 <h2>💸 Daily Expense</h2>
 
+<!-- Quick buttons -->
 <button onclick="quickAdd('Cigarettes', 580)">🚬 Cigarettes</button>
 <button onclick="quickAdd('Groceries', 0)">🛒 Groceries</button>
 <button onclick="quickAdd('Coffee', 300)">☕ Coffee</button>
@@ -30,23 +31,16 @@ function submitData() {
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbwdHKQv7OyAIjLFqy0vruF9_x86JSj9n-QtgmsHcLlyQbA9trKYCZXJfj7dn5XCt2ESqQ/exec"
-  + "?item=" + encodeURIComponent(item)
-  + "&amount=" + encodeURIComponent(amount);
+  const url = "https://script.google.com/macros/s/AKfycbxMiLy2QKYXjzDLmKXxilbLmnc_Q9htqZVFpJj6_PIU_f5RFosByua8J9GYsbne_rE9Ug/exec"
+    + "?item=" + encodeURIComponent(item)
+    + "&amount=" + encodeURIComponent(amount);
 
-fetch("https://script.google.com/macros/s/AKfycbxMiLy2QKYXjzDLmKXxilbLmnc_Q9htqZVFpJj6_PIU_f5RFosByua8J9GYsbne_rE9Ug/exec")
-  .then(() => console.log("sent"))
-  .catch(err => console.error(err));
-  ,
-    body: JSON.stringify({
-      item: item,
-      amount: amount
-    })
-  });
+  fetch(url);
 
   document.getElementById("item").value = "";
   document.getElementById("amount").value = "";
 }
 </script>
+
 </body>
 </html>
