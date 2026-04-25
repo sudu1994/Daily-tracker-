@@ -48,30 +48,29 @@
 
   <button onclick="submitData()">Add Expense</button>
 
-  <script>
-    function submitData() {
-      const item = document.getElementById("item").value;
-      const amount = document.getElementById("amount").value;
+ <script>
+  function submitData() {
+    const item = document.getElementById("item").value;
+    const amount = document.getElementById("amount").value;
 
-      if (!item || !amount) {
-        alert("Enter both fields");
-        return;
-      }
-
-      fetch("https://script.google.com/macros/s/AKfycbwdHKQv7OyAIjLFqy0vruF9_x86JSj9n-QtgmsHcLlyQbA9trKYCZXJfj7dn5XCt2ESqQ/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ item, amount })
-})
-      })
-      .then(() => {
-        document.getElementById("item").value = "";
-        document.getElementById("amount").value = "";
-        alert("Saved ✅");
-      });
+    if (!item || !amount) {
+      alert("Enter both fields");
+      return;
     }
-  </script>
+
+    fetch("https://script.google.com/macros/s/AKfycbwdHKQv7OyAIjLFqy0vruF9_x86JSj9n-QtgmsHcLlyQbA9trKYCZXJfj7dn5XCt2ESqQ/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ item, amount })
+    })
+    .then(() => {
+      document.getElementById("item").value = "";
+      document.getElementById("amount").value = "";
+      alert("Saved ✅");
+    });
+  }
+</script>
 </body>
 </html>
