@@ -43,7 +43,7 @@ button:active {
 }
 
 input {
-  width: 85%;
+  width: 100%;
   padding: 14px;
   margin-top: 10px;
   border-radius: 12px;
@@ -79,42 +79,48 @@ input {
 </div>
 
 <script>
-// 👇 YOUR SCRIPT URL
 const API_URL = "https://script.google.com/macros/s/AKfycbxMiLy2QKYXjzDLmKXxilbLmnc_Q9htqZVFpJj6_PIU_f5RFosByua8J9GYsbne_rE9Ug/exec";
 
-// 🔥 core function
+// send to sheet
 function send(item, amount) {
   const url = API_URL + "?item=" + encodeURIComponent(item) + "&amount=" + encodeURIComponent(amount);
   fetch(url);
-
   if (navigator.vibrate) navigator.vibrate(30);
 }
 
-// 👇 attach events AFTER page loads (this fixes your issue)
-document.getElementById("cig").addEventListener("click", () => {
-  send("Cigarettes", 580);
-});
+// wait until page loads
+document.addEventListener("DOMContentLoaded", () => {
 
-document.getElementById("Enter Name").addEventListener("click", () => {
-  document.getElementById("item").value = "Enter Name";
-  document.getElementById("amount").focus();
-});
+  // 🚬 one tap save
+  document.getElementById("cig").addEventListener("click", () => {
+    send("Cigarettes", 580);
+  });
 
-document.getElementById("grocery").addEventListener("click", () => {
-  document.getElementById("item").value = "Groceries";
-  document.getElementById("amount").focus();
-});
+  // 🤑 manual entry helper
+  document.getElementById("other").addEventListener("click", () => {
+    document.getElementById("item").value = "Other";
+    document.getElementById("amount").focus();
+  });
 
-document.getElementById("addBtn").addEventListener("click", () => {
-  const item = document.getElementById("item").value;
-  const amount = document.getElementById("amount").value;
+  // 🛒 groceries helper
+  document.getElementById("grocery").addEventListener("click", () => {
+    document.getElementById("item").value = "Groceries";
+    document.getElementById("amount").focus();
+  });
 
-  if (!item || !amount) return;
+  // add button
+  document.getElementById("addBtn").addEventListener("click", () => {
+    const item = document.getElementById("item").value;
+    const amount = document.getElementById("amount").value;
 
-  send(item, amount);
+    if (!item || !amount) return;
 
-  document.getElementById("item").value = "";
-  document.getElementById("amount").value = "";
+    send(item, amount);
+
+    document.getElementById("item").value = "";
+    document.getElementById("amount").value = "";
+  });
+
 });
 </script>
 
