@@ -43,7 +43,7 @@ button:active {
 }
 
 input {
-  width: 100%;
+  width: 75%;
   padding: 14px;
   margin-top: 10px;
   border-radius: 12px;
@@ -95,8 +95,9 @@ document.getElementById("cig").addEventListener("click", () => {
   send("Cigarettes", 580);
 });
 
-document.getElementById("coffee").addEventListener("click", () => {
-  send("Coffee", 300);
+document.getElementById("Enter Name").addEventListener("click", () => {
+  document.getElementById("item").value = "Enter Name";
+  document.getElementById("amount").focus();
 });
 
 document.getElementById("grocery").addEventListener("click", () => {
