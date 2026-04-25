@@ -50,6 +50,8 @@
 
  <script>
   function submitData() {
+    console.log("button clicked");
+
     const item = document.getElementById("item").value;
     const amount = document.getElementById("amount").value;
 
@@ -65,10 +67,14 @@
       },
       body: JSON.stringify({ item, amount })
     })
-    .then(() => {
-      document.getElementById("item").value = "";
-      document.getElementById("amount").value = "";
+    .then(res => res.text())
+    .then(data => {
+      console.log(data);
       alert("Saved ✅");
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error ❌");
     });
   }
 </script>
