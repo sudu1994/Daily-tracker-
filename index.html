@@ -58,9 +58,13 @@
         return;
       }
 
-      fetch("YOUR_WEB_APP_URL", {https://script.google.com/macros/s/AKfycbwdHKQv7OyAIjLFqy0vruF9_x86JSj9n-QtgmsHcLlyQbA9trKYCZXJfj7dn5XCt2ESqQ/exec
-        method: "POST",
-        body: JSON.stringify({ item, amount })
+      fetch("https://script.google.com/macros/s/AKfycbwdHKQv7OyAIjLFqy0vruF9_x86JSj9n-QtgmsHcLlyQbA9trKYCZXJfj7dn5XCt2ESqQ/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ item, amount })
+})
       })
       .then(() => {
         document.getElementById("item").value = "";
