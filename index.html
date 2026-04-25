@@ -1,41 +1,132 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expense</title>
 
-<h2>💸 Daily Expense</h2>
-
-<!-- Quick buttons -->
-<button onclick="quickAdd('Cigarettes', 580)">🚬 Cigarettes</button>
-<button onclick="quickAdd('Groceries', 0)">🛒 Groceries</button>
-<button onclick="quickAdd('Coffee', 300)">☕ Coffee</button>
-
-<br><br>
-
-<input id="item" placeholder="What did you buy?" />
-<input id="amount" type="number" placeholder="Amount (¥)" />
-
-<button onclick="submitData()">Add Expense</button>
-
-<script>
-function quickAdd(item, amount) {
-  document.getElementById("item").value = item;
-  document.getElementById("amount").value = amount;
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont;
+  background: #f2f2f7;
+  margin: 0;
+  padding: 20px;
 }
 
-function submitData() {
-  const item = document.getElementById("item").value;
-  const amount = document.getElementById("amount").value;
+.container {
+  max-width: 400px;
+  margin: auto;
+}
 
-  if (!item || !amount) {
-    alert("Enter both fields");
-    return;
-  }
+h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
 
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.quick-btn {
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  background: #f2f2f7;
+  font-size: 18px;
+}
+
+.quick-btn:active {
+  background: #ddd;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  border: none;
+  background: black;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.primary-btn:active {
+  opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💸 Expenses</h2>
+
+<!-- Quick buttons -->
+<div class="card">
+  <div class="grid">
+    <button class="quick-btn" onclick="quickAdd('Cigarettes', 580)">🚬</button>
+    <button class="quick-btn" onclick="quickAdd('Coffee', 300)">☕</button>
+    <button class="quick-btn" onclick="quickAdd('Groceries', 0)">🛒</button>
+  </div>
+</div>
+
+<!-- Manual entry -->
+<div class="card">
+  <input id="item" placeholder="What did you buy?" />
+  <input id="amount" type="number" placeholder="Amount (¥)" />
+
+  <button class="primary-btn" onclick="submitData()">Add Expense</button>
+</div>
+
+</div>
+
+<script>
+// 🔥 ONE-TAP SAVE (no form needed)
+function quickAdd(item, amount) {
   const url = "https://script.google.com/macros/s/AKfycbxMiLy2QKYXjzDLmKXxilbLmnc_Q9htqZVFpJj6_PIU_f5RFosByua8J9GYsbne_rE9Ug/exec"
     + "?item=" + encodeURIComponent(item)
     + "&amount=" + encodeURIComponent(amount);
 
   fetch(url);
+
+  // iPhone-style feedback
+  if (navigator.vibrate) navigator.vibrate(30);
+
+  // quick visual flash
+  document.body.style.opacity = "0.6";
+  setTimeout(() => {
+    document.body.style.opacity = "1";
+  }, 100);
+}
+
+// manual entry
+function submitData() {
+  const item = document.getElementById("item").value;
+  const amount = document.getElementById("amount").value;
+
+  if (!item || !amount) return;
+
+  quickAdd(item, amount);
 
   document.getElementById("item").value = "";
   document.getElementById("amount").value = "";
