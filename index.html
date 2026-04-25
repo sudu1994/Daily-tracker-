@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Expense Tracker</title>
-</head>
-
 <body>
 
 <h2>💸 Daily Expense</h2>
 
-<!-- Quick buttons -->
 <button onclick="quickAdd('Cigarettes', 580)">🚬 Cigarettes</button>
 <button onclick="quickAdd('Groceries', 0)">🛒 Groceries</button>
 <button onclick="quickAdd('Coffee', 300)">☕ Coffee</button>
@@ -36,24 +30,20 @@ function submitData() {
     return;
   }
 
-  fetch("YOUR_NEW_SCRIPT_URL", {"https://script.google.com/macros/s/AKfycbwHCkz3ikbUtP2gw8RQgiDt-hqhtT3GlhcezSqHH9yz-xFjhi0cYM6AX5NRLoe7Vva_1w/exec"
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    item: item,
-    amount: amount
-  })
-})
-.then(res => res.text())
-.then(data => console.log(data))
-.catch(err => console.error(err));
+  fetch("https://script.google.com/macros/s/AKfycbwHCkz3ikbUtP2gw8RQgiDt-hqhtT3GlhcezSqHH9yz-xFjhi0cYM6AX5NRLoe7Vva_1w/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      item: item,
+      amount: amount
+    })
+  });
 
   document.getElementById("item").value = "";
   document.getElementById("amount").value = "";
 }
 </script>
-
 </body>
 </html>
