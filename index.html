@@ -43,7 +43,7 @@ button:active {
 }
 
 input {
-  width: 85%;
+  width: 100%;
   padding: 14px;
   margin-top: 10px;
   border-radius: 12px;
@@ -54,6 +54,15 @@ input {
   background: black;
   color: white;
 }
+
+/* status text */
+#status {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 14px;
+  height: 20px;
+}
 </style>
 </head>
 
@@ -62,6 +71,9 @@ input {
 <div class="container">
 
 <h2>💸 Expenses</h2>
+
+<!-- ✅ status message -->
+<div id="status"></div>
 
 <div class="card grid">
   <button id="cig">🚬</button>
@@ -81,11 +93,27 @@ input {
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxMiLy2QKYXjzDLmKXxilbLmnc_Q9htqZVFpJj6_PIU_f5RFosByua8J9GYsbne_rE9Ug/exec";
 
-// send to sheet
+// 🔥 send with feedback
 function send(item, amount) {
+  const status = document.getElementById("status");
   const url = API_URL + "?item=" + encodeURIComponent(item) + "&amount=" + encodeURIComponent(amount);
-  fetch(url);
+
+  status.innerText = "Saving...";
+
+  fetch(url)
+    .then(() => {
+      status.innerText = "Added ✓";
+    })
+    .catch(() => {
+      status.innerText = "Error ❌";
+    });
+
   if (navigator.vibrate) navigator.vibrate(30);
+
+  // clear message
+  setTimeout(() => {
+    status.innerText = "";
+  }, 1500);
 }
 
 // wait until page loads
